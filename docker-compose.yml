@@ -11,7 +11,7 @@ services:
       ## set the port to run the webserver on ##
       - "${HOST_PORT_HTTP}:80"
     networks:
-      - cloudways_test_network
+      - barbershop_local_network
       
   app:
     ## read php image from our custom docker image ##
@@ -28,7 +28,7 @@ services:
     tty: true
     restart: unless-stopped
     networks:
-      - cloudways_test_network
+      - barbershop_local_network
 
   db:
     image: 'mysql/mysql-server:8.0'
@@ -44,7 +44,7 @@ services:
       MYSQL_ROOT_PASSWORD: ${DB_PASSWORD}
       MYSQL_ALLOW_EMPTY_PASSWORD: 1
     networks:
-      - cloudways_test_network
+      - barbershop_local_network
 
   redis:
     image: redis
@@ -52,7 +52,7 @@ services:
       ## keep redis data on localhost so we don't lose them ##
       - ./docker-volumes-data/redis:/data
     networks:
-      - cloudways_test_network
+      - barbershop_local_network
 
   wpdemo:
     image: wordpress:latest
@@ -67,7 +67,7 @@ services:
       - WORDPRESS_DB_USER=SamuraiAdmin
       - WORDPRESS_DB_PASSWORD=konnichiwa75
     networks:
-      - cloudways_test_network
+      - barbershop_local_network
 
   pmademo:
     image: "phpmyadmin:latest"
@@ -84,7 +84,7 @@ services:
       - db
     restart: always
     networks:
-      - cloudways_test_network
+      - barbershop_local_network
 
 networks:
-  cloudways_test_network:
+  barbershop_local_network:
